@@ -24,13 +24,14 @@ definitionField = 'Sanseido'
 
 # Fetch definition from Sanseido ===============================================
 def fetchDef(term):
-	term = re.search(r'^[^\[]+',term).group(0)
+    searched = re.search(r'^[^\[]+',term)
+    if searched:
+        term = searched.group(0)
 	defText = ""
-	pageUrl = "http://www.sanseido.net/User/Dic/Index.aspx?TWords=" + urllib.quote(term.encode('utf-8')) + "&st=0&DailyJJ=checkbox"
+	pageUrl = "http://www.sanseido.biz/User/Dic/Index.aspx?TWords=" + urllib.quote(term.encode('utf-8')) + "&st=0&DailyJJ=checkbox"
 	response = urllib.urlopen(pageUrl)
 	soup = BeautifulSoup(response)
 	NetDicBody = soup.find('div', class_ = "NetDicBody")
-
 	if NetDicBody != None:
 		defFinished = False
 		
