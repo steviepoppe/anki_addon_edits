@@ -27,7 +27,7 @@ MAX = 20          # Amount to temporarily show when this add-on is loaded
 MAX_PERMANENT = 5 # Amount to add permanently to the Examples field
 
 # Only try lookups if the note's model name contains (case insensitive):
-NOTE_TRIGGER = "Rikai"
+NOTE_TRIGGER = ["Rikai", "Yomi"]
 
 # Source and destination fields (edit if the names if your fields are different)
 # These field names are case sensitive
@@ -140,7 +140,9 @@ def find_examples(expression, maxitems):
     examples = []
 
 
-    expression = re.search(r'^[^\[]+',expression).group(0)
+    searched = re.search(r'^[^\[]+',expression)
+    if searched:
+        expression = searched.group(0)
 
     
     for dictionary in dictionaries:
@@ -156,7 +158,7 @@ def find_examples(expression, maxitems):
             for j in index:
                 example = content[j].split("#ID=")[0][3:]
                 if dictionary == dictionaries[0]:
-                    example = example + " {CHECKED}"
+                    example = example + " &#10003;"
                 example = example.replace(expression,'<FONT COLOR="#ff0000">%s</FONT>' %expression)
                 color_example = content[j+1]
                 regexp = "(?:\(*%s\)*)(?:\([^\s]+?\))*(?:\[\d+\])*\{(.+?)\}" %expression
@@ -194,8 +196,13 @@ def find_examples_multiple(n, maxitems, modelname=""):
     if not modelname:
         modelname = n.model()['name'].lower()
 
-    if NOTE_TRIGGER.lower() not in modelname or DEST_FIELD not in n:
+    triggers = [fld for fld in NOTE_TRIGGER if fld.lower() in modelname]
+
+    if not triggers or DEST_FIELD not in n:
         return False
+
+    #if NOTE_TRIGGER.lower() not in modelname or DEST_FIELD not in n:
+    #    return False
 
     lookup_fields = [fld for fld in SOURCE_FIELDS if fld in n]
 
