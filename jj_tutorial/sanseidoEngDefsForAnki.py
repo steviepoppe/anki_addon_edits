@@ -28,27 +28,29 @@ def fetchDef(term):
     if searched:
         term = searched.group(0)
 	defText = ""
+	defVocab = []
 	#pageUrl = "http://www.sanseido.biz/User/Dic/Index.aspx?TWords=" + urllib.quote(term.encode('utf-8')) + "&st=0&DailyJJ=checkbox"
 	pageUrl = "http://www.sanseido.biz/User/Dic/Index.aspx?TWords=" + urllib.quote(term.encode('utf-8')) + "&st=0&DailyJE=checkbox"
 	response = urllib.urlopen(pageUrl)
 	soup = BeautifulSoup(response)
 	NetDicBody = soup.find('div', class_ = "NetDicBody")
 	if NetDicBody != None:
-		defFinished = False
+		defText += NetDicBody.prettify()
+		# defFinished = False
 		
-		for line in NetDicBody.children:
-			if line.name == "b":
-				if len(line) != 1:
-					for child in line.children:
-						if child.name == "span":
-							defFinished = True
-			if defFinished:
-				break
+		# for line in NetDicBody.children:
+		# 	if line.name == "b":
+		# 		if len(line) != 1:
+		# 			for child in line.children:
+		# 				if child.name == "span":
+		# 					defFinished = True
+		# 	if defFinished:
+		# 		break
 			
-			if line.string != None and line.string != u"\n":
-				defText += line.string
+		# 	if line.string != None and line.string != u"\n":
+		# 		defText += line.string
 				
-	defText = re.sub(ur"［(?P<no>[２-９]+)］", ur"<br/><br/>［\1］", defText)
+	#defText = re.sub(ur"［(?P<no>[２-９]+)］", ur"<br/><br/>［\1］", defText)
 	return re.sub(ur"（(?P<num>[２-９]+)）", ur"<br/>（\1）", defText)
 
 # Update note ==================================================================
