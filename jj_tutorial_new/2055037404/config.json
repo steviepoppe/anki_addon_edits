@@ -1,0 +1,8 @@
+{"expressionField": "Expression",
+ "definitionField": "JapaneseDef",
+ "max_threads": 15,
+ "force_update": "no",
+ "update_separator": "<br>",
+ "keybinding": ""
+}
+

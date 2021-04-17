@@ -1,0 +1,1 @@
+{"name": "Japanese Definition Scraper from weblio Dictionary", "mod": 1576545384, "min_point_version": 0, "max_point_version": 0, "branch_index": 0, "config": {"definitionField": "JapaneseDef", "expressionField": "Expression", "force_update": "no", "keybinding": "", "max_threads": 15, "update_separator": "<br>"}}
