@@ -1,0 +1,11 @@
+{
+	"maxShow": 20,
+	"maxPermanent": 5,
+	"noteTypes": ["Yomichantest"],
+	"srcFields": ["Expression", "kanji-vocab"],
+	"combinedDstField": "Examples",
+	"weightedSample": true,
+	"lookupOnAdd": true,
+	"japaneseDstField": "ExampleJapanese",
+	"englishDstField": "ExampleEnglish"
+}
